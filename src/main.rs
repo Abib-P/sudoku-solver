@@ -1,8 +1,8 @@
-mod sudoku_parser;
+mod sudoku_helper;
 
 use std::fs;
 use std::env;
-use crate::sudoku_parser::parse_sudoku;
+use crate::sudoku_helper::{parse_sudoku, solve_sudoku};
 
 fn main() {
     //get the arguments
@@ -16,7 +16,13 @@ fn main() {
         .expect("Should have been able to read the file");
     //parse the sudoku
     let sudoku = parse_sudoku(&contents);
-    //print the sudoku
-    print!("{:?}", sudoku);
     //solve the the sudoku
+    let solved_sudoku = solve_sudoku(sudoku);
+    //print the solved sudoku
+    for row in solved_sudoku {
+        for col in row {
+            print!("{} ", col);
+        }
+        println!("");
+    }
 }
